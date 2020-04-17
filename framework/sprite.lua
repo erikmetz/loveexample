@@ -1,0 +1,53 @@
+Object = {}
+
+function Object:new(o)
+  o = o or {}
+  setmetatable(o, self)
+  self.__index = self
+  return o
+end
+
+function Object:update(dt)
+end
+
+Sprite = Object:new({x = 0, y = 0, sprite = nil})
+Sprite.rotation = 0
+Sprite.scalex = 1
+Sprite.scaley = 1
+Sprite.width = 0
+Sprite.height = 0
+Sprite.room = nil
+Sprite.room_index = nil
+
+function Sprite:set_sprite(sprite)
+  self.sprite = sprite
+  self.width = sprite:getWidth()
+  self.height = sprite:getHeight()
+end
+
+function Sprite:draw(screen_x, screen_y, dt)
+  love.graphics.draw(self.sprite, self.x, self.y, self.rotation, self.scalex, self.scaley, screen_x, screen_y)
+end
+
+function Sprite:set_room(room, index)
+  self.room = room
+  self.room_index = index
+end
+
+function Sprite:get_width()
+  return self.width * self.scalex
+end
+
+function Sprite:get_height()
+  return self.height * self.scaley
+end
+
+function Sprite:on_delete()
+end
+
+function Sprite:delete()
+  self:on_delete()
+  self.room[self.room_index] = nil
+end
+
+return Sprite
