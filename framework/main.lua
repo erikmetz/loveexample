@@ -1,13 +1,55 @@
+
 Room = require("room")
 Sprite = require("sprite")
+Collision_Sprite = require("collision_sprite")
 
 function love.load()
   local slime = love.graphics.newImage("Slime.png")
-  local slime_sprite = Sprite:new()
+  local Slime_sprite = Collision_Sprite:new()
+  Slime_sprite:set_sprite(slime)
+  Slime_sprite.velocity = 10
+  Slime_sprite.direction = {x=1, y=0}
+  function Slime_sprite:init_shape(collider)
+    collider:rectangle(self.x, self.y, self:get_width(), self:get_height())
+  end
+
+  Slime_sprite:on_collide("*", function(self,other,dx,dy)
+    self.direction.x = -self.direction.x
+    self.direction.y = -self.direction.y
+  end)
+
+  function Slime_sprite:update(dt)
+    self:move(self.velocity * self.direction.x * dt, self.velocity * self.direction.y * dt)
+  end
+
+  function Slime_sprite:init_shape(collider)
+    self.shape = collider:rectangle(self.x,self.y,self:get_width(),self:get_height())
+    self.shape.sprite = self
+  end
+
+  function Slime_sprite:init(k)
+    self.velocity = math.random()*100
+    local tempx = math.random()
+    local tempy = math.random()
+    self.direction = {}
+    self.direction.x = (tempx) / math.sqrt(tempx^2 + tempy^2)
+    self.direction.y = (tempy) / math.sqrt(tempx^2 + tempy^2)
+    self.x = 50 * math.floor(k / 10)
+    self.y = 50 * (k % 10)
+  end
+
   test_room = Room:new()
-  slime_sprite:set_sprite(slime)
-  test_room:insert_sprite(slime_sprite)
-  slime_sprite.update = function(self, dt) self.x = self.x + 80*dt self.scalex = self.scalex + dt end
+
+  for i = 1, 100 do
+    local slime_instance = Slime_sprite:new()
+    slime_instance:init(i)
+    test_room:insert_sprite(slime_instance)
+  end
+
+  print(#test_room.sprites)
+  print(test_room.sprites[1].velocity)
+  print(test_room.sprites[11].velocity)
+
 end
 
 

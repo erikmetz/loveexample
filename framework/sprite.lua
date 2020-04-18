@@ -34,6 +34,11 @@ function Sprite:set_room(room, index)
   self.room_index = index
 end
 
+function Sprite:move(dx, dy)
+  self.x = self.x + dx
+  self.y = self.y + dy
+end
+
 function Sprite:get_width()
   return self.width * self.scalex
 end
@@ -49,5 +54,6 @@ function Sprite:delete()
   self:on_delete()
   self.room[self.room_index] = nil
 end
+
 
 return Sprite
