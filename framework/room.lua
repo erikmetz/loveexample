@@ -29,13 +29,6 @@ function Room:update(dt)
           sprite.colliding[shape.sprite] = 1
         end
       end
-      --[[
-      if shape.sprite.colliding[sprite] == nil then
-        shape.sprite.colliding[sprite] = 2
-      else
-        shape.sprite.colliding[sprite] = 1
-      end
-      --]]
     end
   end
   for i, sprite in pairs(self.collision_sprites) do
