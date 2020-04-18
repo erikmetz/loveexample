@@ -43,6 +43,7 @@ function Collision_Sprite:update_collisions()
   for k,v in pairs(self.colliding) do
     if v == 2 then
       self:on_collide_with(k)
+      self:during_collide_with(k)
       self.colliding[k] = 0
     elseif v == 1 then
       self:during_collide_with(k)
