@@ -13,7 +13,7 @@ function love.load()
     collider:rectangle(self.x, self.y, self:get_width(), self:get_height())
   end
 
-  Slime_sprite:on_collide("*", function(self,other,dx,dy)
+  Slime_sprite:on_collide("*", function(self,other)
     self.direction.x = -self.direction.x
     self.direction.y = -self.direction.y
   end)
@@ -43,12 +43,8 @@ function love.load()
   for i = 1, 100 do
     local slime_instance = Slime_sprite:new()
     slime_instance:init(i)
-    test_room:insert_sprite(slime_instance)
+    test_room:insert_collision_sprite(slime_instance)
   end
-
-  print(#test_room.sprites)
-  print(test_room.sprites[1].velocity)
-  print(test_room.sprites[11].velocity)
 
 end
 

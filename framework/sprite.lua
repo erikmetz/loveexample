@@ -55,5 +55,4 @@ function Sprite:delete()
   self.room[self.room_index] = nil
 end
 
-
 return Sprite
