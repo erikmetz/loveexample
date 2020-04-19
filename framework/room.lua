@@ -2,10 +2,9 @@
 HC = require 'HC'
 
 Room = {objects = {}, sprites = {}, collision_sprites = {}}
-Room.sprite_canvas = nil
 
 function Room:new(r)
-  r = r or {}
+  r = r or {objects = {}, sprites = {}, collision_sprites = {}}
   r.collider = HC.new()
   setmetatable(r, self)
   self.__index = self
