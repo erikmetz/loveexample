@@ -14,7 +14,7 @@ local gameover = {}
 math.randomseed(os.time())
 
 function game:enter()
-  bg = Background:new('placeholder')
+  bg = Background:new("floorboards40.png")
   local slime = love.graphics.newImage("Slime.png")
   local Slime_sprite = Collision_Sprite:new()
   Slime_sprite:set_sprite(slime)
@@ -84,7 +84,7 @@ function game:update(dt)
 end
 
 function game:draw(dt)
-  bg.draw_full_background()
+  bg:draw_full_background()
   test_room:draw(dt)
 end
 

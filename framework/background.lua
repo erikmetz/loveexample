@@ -12,7 +12,7 @@ end
 function Background:draw_full_background()
   local window_width = love.graphics.getWidth()
   local window_height = love.graphics.getHeight()
-  local background = love.graphics.newImage('background.png')
+  local background = love.graphics.newImage(self.bg_file)
   for i = 0, window_width, 40 do
     for j = 0, window_height, 40 do
       love.graphics.draw(background, i, j)
