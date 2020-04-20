@@ -9,6 +9,7 @@ function Wolf_Enemy:init_shape(collider)
 end
 
 Wolf_Enemy.group = "enemy"
+Wolf_Enemy.health = 20
 
 Wolf_Enemy.sprite_frames = {wolf_frame_1,wolf_frame_2}
 Wolf_Enemy:set_sprite(wolf_frame_1)
@@ -51,7 +52,10 @@ Wolf_Enemy:on_collide("barrier", function(self,other,delta)
 end)
 
 Wolf_Enemy:on_collide("player_bullet", function(self,other,delta)
-  self:delete()
+  self.health = self.health - 1
+  if self.health <= 0 then
+    self:delete()
+  end
 end)
 
 function Wolf_Enemy:update(dt)
