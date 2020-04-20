@@ -5,7 +5,7 @@ local Collision_Sprite = require("collision_sprite")
 local Slime_Char = require("slime_char")
 local Wolf_Enemy = require("wolf_enemy")
 local Barrier = require("barrier")
-
+local Background = require("background")
 local Gamestate = require("hump.gamestate")
 
 local game = {}
@@ -14,6 +14,7 @@ local gameover = {}
 math.randomseed(os.time())
 
 function game:enter()
+  bg = Background:new('placeholder')
   local slime = love.graphics.newImage("Slime.png")
   local Slime_sprite = Collision_Sprite:new()
   Slime_sprite:set_sprite(slime)
@@ -83,6 +84,7 @@ function game:update(dt)
 end
 
 function game:draw(dt)
+  bg.draw_full_background()
   test_room:draw(dt)
 end
 
