@@ -77,7 +77,7 @@ local function null_func()
 end
 
 function Collision_Sprite:on_collide_with(other)
-  (self._on_collide[other.group] or self._on_collide["*"])(self, other)
+  (self._on_collide[other.group] or self._on_collide["*"] or null_func)(self, other)
 end
 
 function Collision_Sprite:during_collide_with(other)

@@ -2,6 +2,7 @@
 Room = require("room")
 Sprite = require("sprite")
 Collision_Sprite = require("collision_sprite")
+Slime_Char = require("slime_char")
 
 function love.load()
   local slime = love.graphics.newImage("Slime.png")
@@ -45,6 +46,12 @@ function love.load()
     slime_instance:init(i)
     test_room:insert_collision_sprite(slime_instance)
   end
+
+  local slime_char_instance = Slime_Char:new()
+  slime_char_instance.x = 550
+  slime_char_instance.y = 550
+  test_room:insert_collision_sprite(slime_char_instance)
+
 
 end
 
