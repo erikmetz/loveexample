@@ -29,8 +29,9 @@ function Sprite:draw(screen_x, screen_y, dt)
   love.graphics.draw(self.sprite, self.x, self.y, self.rotation, self.scalex, self.scaley, screen_x, screen_y)
 end
 
-function Sprite:set_room(room, index)
+function Sprite:set_room(room, table, index)
   self.room = room
+  self.room_table = table
   self.room_index = index
 end
 
@@ -52,7 +53,7 @@ end
 
 function Sprite:delete()
   self:on_delete()
-  self.room[self.room_index] = nil
+  self.room_table[self.room_index] = nil
 end
 
 return Sprite

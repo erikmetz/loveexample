@@ -53,7 +53,7 @@ end
 function Room:insert_sprite(sprite)
   local p = #(self.sprites) + 1
   self.sprites[p] = sprite
-  sprite:set_room(room, p)
+  sprite:set_room(room, self.sprites, p)
   if sprite.init_shape ~= nil then
     sprite:init_shape(self.collider)
     sprite:connect_shape()
@@ -63,7 +63,7 @@ end
 function Room:insert_collision_sprite(collision_sprite)
   local p = #(self.collision_sprites) + 1
   self.collision_sprites[p] = collision_sprite
-  collision_sprite:set_room(room, p)
+  collision_sprite:set_room(room, self.collision_sprites, p)
   collision_sprite:init_shape(self.collider)
   collision_sprite:connect_shape()
 end

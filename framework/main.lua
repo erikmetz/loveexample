@@ -19,6 +19,10 @@ function love.load()
     self.direction.y = -self.direction.y
   end)
 
+  Slime_sprite:on_collide("player", function(self,other)
+    self:delete()
+  end)
+
   function Slime_sprite:update(dt)
     self:move(self.velocity * self.direction.x * dt, self.velocity * self.direction.y * dt)
   end

@@ -8,6 +8,8 @@ Slime_Char:set_sprite(slime)
 
 Slime_Char.speed = 200
 
+Slime_Char.group = "player"
+
 function Slime_Char:update(dt)
   if love.keyboard.isDown('w') then
     self:move(0,-self.speed*dt)
