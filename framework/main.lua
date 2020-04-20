@@ -43,6 +43,10 @@ function love.load()
     self.y = 50 * (k % 10)
   end
 
+  function Slime_sprite:on_delete()
+    print("O I am slain")
+  end
+
   test_room = Room:new()
 
   for i = 1, 100 do
@@ -51,9 +55,7 @@ function love.load()
     test_room:insert_collision_sprite(slime_instance)
   end
 
-  local slime_char_instance = Slime_Char:new()
-  slime_char_instance.x = 550
-  slime_char_instance.y = 550
+  local slime_char_instance = Slime_Char:new({x = 550, y = 550})
   test_room:insert_collision_sprite(slime_char_instance)
 
 

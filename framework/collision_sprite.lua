@@ -6,6 +6,7 @@ Collision_Sprite._on_collide = {}
 Collision_Sprite._during_collide = {}
 Collision_Sprite._stop_collide = {}
 Collision_Sprite.colliding = {}
+Collision_Sprite.collider = nil
 
 function Collision_Sprite:new(o)
   o = o or {}
@@ -86,6 +87,18 @@ end
 
 function Collision_Sprite:stop_collide_with(other)
   (self._stop_collide[other.group] or self._stop_collide["*"] or null_func)(self, other)
+end
+
+function Collision_Sprite:set_collider(collider)
+  self.collider = collider
+end
+
+function Collision_Sprite:delete()
+  self:on_delete()
+  if self.collider ~= nil then
+    self.collider:remove(self.shape)
+  end
+  self.room_table[self.room_index] = nil
 end
 
 return Collision_Sprite

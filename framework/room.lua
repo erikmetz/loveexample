@@ -31,8 +31,9 @@ function Room:update(dt)
     end
   end
   for i, sprite in pairs(self.collision_sprites) do
-    local done = false
     sprite:update_collisions()
+  end
+  for i, sprite in pairs(self.collision_sprites) do
     sprite:update(dt)
   end
 end
@@ -65,6 +66,7 @@ function Room:insert_collision_sprite(collision_sprite)
   self.collision_sprites[p] = collision_sprite
   collision_sprite:set_room(room, self.collision_sprites, p)
   collision_sprite:init_shape(self.collider)
+  collision_sprite:set_collider(self.collider)
   collision_sprite:connect_shape()
 end
 
