@@ -97,6 +97,10 @@ end
 
 function Sprite:delete()
   self:on_delete()
+  self.room.to_delete[self] = true
+end
+
+function Sprite:_delete()
   self.room_table[self.room_index] = nil
 end
 

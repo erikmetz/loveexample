@@ -20,6 +20,7 @@ function Wolf_Enemy:new(x, y)
   e = {}
   e.x = x
   e.y = y
+
   e.duration = 0
   e.anim_timer = 0
   e.speed = 250

@@ -3,7 +3,7 @@ local HC = require 'HC'
 local Room = {objects = {}, sprites = {}, collision_sprites = {}}
 
 function Room:new(r)
-  r = r or {objects = {}, sprites = {}, collision_sprites = {}}
+  r = r or {objects = {}, sprites = {}, collision_sprites = {}, to_delete = {}}
   r.collider = HC.new()
   setmetatable(r, self)
   self.__index = self
@@ -38,6 +38,11 @@ function Room:update(dt)
 
   for i, sprite in pairs(self.collision_sprites) do
     sprite:update_collisions()
+  end
+
+  for sprite, _ in pairs(self.to_delete) do
+    self.to_delete[sprite] = nil
+    sprite:_delete()
   end
 end
 
