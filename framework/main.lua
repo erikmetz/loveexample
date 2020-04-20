@@ -60,7 +60,10 @@ function love.load()
   end
   test_room:insert_collision_sprite(Barrier:new(0,100,600,10))
   --]]
-  test_room:insert_collision_sprite(Wolf_Enemy:new(300,300))
+  test_room:insert_collision_sprite(Wolf_Enemy:new(300,0))
+  local other_wolf = Wolf_Enemy:new(300,600)
+  other_wolf.direction.y = -other_wolf.direction.y
+  test_room:insert_collision_sprite(other_wolf)
   local slime_char_instance = Slime_Char:new({x = 550, y = 550})
   test_room:insert_collision_sprite(slime_char_instance)
 
