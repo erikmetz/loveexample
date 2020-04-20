@@ -1,5 +1,6 @@
 local Collision_Sprite = require('collision_sprite')
 local Player_Bullet = require("player_bullet")
+local Gamestate = require("hump.gamestate")
 
 local Slime_Char = Collision_Sprite:new()
 local slime = love.graphics.newImage("Slime.png")
@@ -35,6 +36,16 @@ function Slime_Char:_keypressed(key, scancode, isrepeat)
     self.room:insert_collision_sprite(Player_Bullet:new(cx,cy,{x=0,y=1},bspeed))
   elseif key == 'left' then
     self.room:insert_collision_sprite(Player_Bullet:new(cx,cy,{x=-1,y=0},bspeed))
+  end
+end
+
+Slime_Char:on_collide("enemy", function(self,other,delta)
+  self:delete()
+end)
+
+function Slime_Char:on_delete()
+  if self.death_state ~= nil then
+    Gamestate.switch(self.death_state)
   end
 end
 

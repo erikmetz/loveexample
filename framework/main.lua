@@ -6,9 +6,14 @@ local Slime_Char = require("slime_char")
 local Wolf_Enemy = require("wolf_enemy")
 local Barrier = require("barrier")
 
+local Gamestate = require("hump.gamestate")
+
+local game = {}
+local gameover = {}
+
 math.randomseed(os.time())
 
-function love.load()
+function game:enter()
   local slime = love.graphics.newImage("Slime.png")
   local Slime_sprite = Collision_Sprite:new()
   Slime_sprite:set_sprite(slime)
@@ -66,20 +71,42 @@ function love.load()
   test_room:insert_collision_sprite(Barrier:new(800,0,100,600))
   test_room:insert_collision_sprite(Wolf_Enemy:new(300,1))
   local slime_char_instance = Slime_Char:new({x = 550, y = 550})
+  slime_char_instance.death_state = gameover
   test_room:insert_collision_sprite(slime_char_instance)
 
 
 end
 
 
-function love.update(dt)
+function game:update(dt)
   test_room:update(dt)
 end
 
-function love.draw(dt)
+function game:draw(dt)
   test_room:draw(dt)
 end
 
-function love.keypressed(key, scancode, isrepeat)
+function game:keypressed(key, scancode, isrepeat)
   test_room:_keypressed(key, scancode, isrepeat)
+end
+
+function gameover:enter()
+  self.t = 0
+end
+
+function gameover:update(dt)
+  self.t = self.t + dt
+end
+
+function gameover:draw()
+  love.graphics.setColor(1,0,0)
+  love.graphics.print("you died", 10, 10)
+  if self.t > 5 then
+    love.graphics.print("you're not very good at this game", 20, 30)
+  end
+end
+
+function love.load()
+  Gamestate.registerEvents()
+  Gamestate.switch(game)
 end
