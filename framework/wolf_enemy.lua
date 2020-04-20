@@ -12,7 +12,6 @@ Wolf_Enemy.sprite_frames = {wolf_frame_1,wolf_frame_2}
 Wolf_Enemy:set_sprite(wolf_frame_1)
 Wolf_Enemy.current_frame = 1
 Wolf_Enemy.animation_duration = .25
-Wolf_Enemy.dir_duration = 4
 
 function Wolf_Enemy:new(x, y)
   e = {}
@@ -20,12 +19,9 @@ function Wolf_Enemy:new(x, y)
   e.y = y
   e.duration = 0
   e.anim_timer = 0
-  e.dir_timer = 0
-  e.speed = 25
-  --local tempx = 2*math.random() - 1
-  --local tempy = 2*math.random() - 1
-  local tempx = 1
-  local tempy = 1
+  e.speed = 100
+  local tempx = 2*math.random() - 1
+  local tempy = 2*math.random() - 1
   e.direction = {}
   e.direction.x = (tempx) / math.sqrt(tempx^2 + tempy^2)
   e.direction.y = (tempy) / math.sqrt(tempx^2 + tempy^2)
@@ -43,17 +39,23 @@ function Wolf_Enemy:next_frame()
   self:set_sprite(self.sprite_frames[self.current_frame])
 end
 
+Wolf_Enemy:on_collide("barrier", function(self,other,delta)
+  if delta.x*self.direction.x < 0 then
+    self.direction.x = -self.direction.x
+  end
+  if delta.y*self.direction.y < 0 then
+    self.direction.y = -self.direction.y
+  end
+end)
+
 function Wolf_Enemy:update(dt)
   self.anim_timer = self.anim_timer + dt
-  self.dir_timer = self.dir_timer + dt
   if self.anim_timer > self.animation_duration then
     self:next_frame()
     self.anim_timer = self.anim_timer - self.animation_duration
   end
-  if self.dir_timer > self.dir_duration then
+  if self.scalex * self.direction.x < 0 then
     self:reflect_horizontal()
-    self.direction.x = -self.direction.x
-    self.dir_timer = self.dir_timer - self.dir_duration
   end
   self:move(self.speed * self.direction.x * dt, self.speed * self.direction.y * dt)
 end

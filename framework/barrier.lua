@@ -8,7 +8,7 @@ function Barrier:new(x,y,w,h)
   b.x = x
   b.y = y
   b.width = w
-  b.height = w
+  b.height = h
 
   setmetatable(b, self)
   self.__index = self

@@ -19,6 +19,16 @@ Sprite.height = 0
 Sprite.room = nil
 Sprite.room_index = nil
 
+local function sign(x)
+  if x > 0 then
+    return 1
+  elseif x < 0 then
+    return -1
+  else
+    return 0
+  end
+end
+
 function Sprite:set_sprite(sprite)
   self.sprite = sprite
   self.width = sprite:getWidth()
@@ -27,7 +37,7 @@ end
 
 function Sprite:reflect_horizontal()
   self.scalex = self.scalex*-1
-  self.x = self.x - self:get_width()
+  self.x = self.x - (sign(self.scalex) * self:get_width())
 end
 
 function Sprite:set_scale_horizontal(s)
@@ -35,10 +45,8 @@ function Sprite:set_scale_horizontal(s)
 end
 
 function Sprite:set_reflection_horizontal(d)
-  if d > 0 then
-    self.scalex = math.abs(self.scalex)
-  elseif d < 0 then
-    self.scalex = -math.abs(self.scalex)
+  if sign(d*self.scalex) < 1 then
+    self:reflect_horizontal()
   end
 end
 
@@ -58,7 +66,7 @@ function Sprite:move(dx, dy)
 end
 
 function Sprite:get_width()
-  return self.width * self.scalex
+  return math.abs(self.width * self.scalex)
 end
 
 function Sprite:get_height()

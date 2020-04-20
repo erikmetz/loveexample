@@ -22,9 +22,9 @@ function Room:update(dt)
     for shape, delta in pairs(self.collider:collisions(sprite.shape)) do
       if shape.sprite ~= sprite then
         if sprite.colliding[shape.sprite] == nil then
-          sprite.colliding[shape.sprite] = 2
+          sprite.colliding[shape.sprite] = {status = 2, separating_vector = delta}
         else
-          sprite.colliding[shape.sprite] = 1
+          sprite.colliding[shape.sprite] = {status = 1, separating_vector = delta}
         end
       end
     end

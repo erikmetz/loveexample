@@ -42,13 +42,13 @@ end
 
 function Collision_Sprite:update_collisions()
   for k,v in pairs(self.colliding) do
-    if v == 2 then
-      self:on_collide_with(k)
-      self:during_collide_with(k)
-      self.colliding[k] = 0
-    elseif v == 1 then
-      self:during_collide_with(k)
-      self.colliding[k] = 0
+    if v.status == 2 then
+      self:on_collide_with(k,v.separating_vector)
+      self:during_collide_with(k,v.separating_vector)
+      v.status = 0
+    elseif v.status == 1 then
+      self:during_collide_with(k,v.separating_vector)
+      v.status = 0
     else
       self:stop_collide_with(k)
       self.colliding[k] = nil
@@ -77,16 +77,16 @@ end
 local function null_func()
 end
 
-function Collision_Sprite:on_collide_with(other)
-  (self._on_collide[other.group] or self._on_collide["*"] or null_func)(self, other)
+function Collision_Sprite:on_collide_with(other, delta)
+  (self._on_collide[other.group] or self._on_collide["*"] or null_func)(self, other, delta)
 end
 
-function Collision_Sprite:during_collide_with(other)
-  (self._during_collide[other.group] or self._during_collide["*"] or null_func)(self, other)
+function Collision_Sprite:during_collide_with(other, delta)
+  (self._during_collide[other.group] or self._during_collide["*"] or null_func)(self, other, delta)
 end
 
-function Collision_Sprite:stop_collide_with(other)
-  (self._stop_collide[other.group] or self._stop_collide["*"] or null_func)(self, other)
+function Collision_Sprite:stop_collide_with(other, delta)
+  (self._stop_collide[other.group] or self._stop_collide["*"] or null_func)(self, other, delta)
 end
 
 function Collision_Sprite:set_collider(collider)
