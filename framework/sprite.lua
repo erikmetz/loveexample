@@ -1,4 +1,4 @@
-Object = {}
+local Object = {}
 
 function Object:new(o)
   o = o or {}
@@ -10,7 +10,7 @@ end
 function Object:update(dt)
 end
 
-Sprite = Object:new({x = 0, y = 0, sprite = nil})
+local Sprite = Object:new({x = 0, y = 0, sprite = nil})
 Sprite.rotation = 0
 Sprite.scalex = 1
 Sprite.scaley = 1
@@ -23,6 +23,23 @@ function Sprite:set_sprite(sprite)
   self.sprite = sprite
   self.width = sprite:getWidth()
   self.height = sprite:getHeight()
+end
+
+function Sprite:reflect_horizontal()
+  self.scalex = self.scalex*-1
+  self.x = self.x - self:get_width()
+end
+
+function Sprite:set_scale_horizontal(s)
+  self.scalex = s
+end
+
+function Sprite:set_reflection_horizontal(d)
+  if d > 0 then
+    self.scalex = math.abs(self.scalex)
+  elseif d < 0 then
+    self.scalex = -math.abs(self.scalex)
+  end
 end
 
 function Sprite:draw(screen_x, screen_y, dt)

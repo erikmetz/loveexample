@@ -1,9 +1,8 @@
-Collision_Sprite = require('collision_sprite')
+local Collision_Sprite = require('collision_sprite')
 
-abc = 5
 
-Slime_Char = Collision_Sprite:new()
-slime = love.graphics.newImage("Slime.png")
+local Slime_Char = Collision_Sprite:new()
+local slime = love.graphics.newImage("Slime.png")
 Slime_Char:set_sprite(slime)
 
 Slime_Char.speed = 200
@@ -24,11 +23,5 @@ function Slime_Char:update(dt)
     self:move(self.speed*dt,0)
   end
 end
-
-function Slime_Char:init_shape(collider)
-  self.shape = collider:rectangle(self.x,self.y,self:get_width(),self:get_height())
-  self.shape.sprite = self
-end
-
 
 return Slime_Char

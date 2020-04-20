@@ -1,8 +1,12 @@
 
-Room = require("room")
-Sprite = require("sprite")
-Collision_Sprite = require("collision_sprite")
-Slime_Char = require("slime_char")
+local Room = require("room")
+local Sprite = require("sprite")
+local Collision_Sprite = require("collision_sprite")
+local Slime_Char = require("slime_char")
+local Wolf_Enemy = require("wolf_enemy")
+local Barrier = require("barrier")
+
+math.randomseed(os.time())
 
 function love.load()
   local slime = love.graphics.newImage("Slime.png")
@@ -48,13 +52,15 @@ function love.load()
   end
 
   test_room = Room:new()
-
+--[[
   for i = 1, 100 do
     local slime_instance = Slime_sprite:new()
     slime_instance:init(i)
     test_room:insert_collision_sprite(slime_instance)
   end
-
+  test_room:insert_collision_sprite(Barrier:new(0,100,600,10))
+  --]]
+  test_room:insert_collision_sprite(Wolf_Enemy:new(300,300))
   local slime_char_instance = Slime_Char:new({x = 550, y = 550})
   test_room:insert_collision_sprite(slime_char_instance)
 

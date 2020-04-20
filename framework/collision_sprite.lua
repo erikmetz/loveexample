@@ -1,7 +1,7 @@
-Sprite = require('sprite')
-HC = require('HC')
+local Sprite = require('sprite')
+local HC = require('HC')
 
-Collision_Sprite = Sprite:new()
+local Collision_Sprite = Sprite:new()
 Collision_Sprite._on_collide = {}
 Collision_Sprite._during_collide = {}
 Collision_Sprite._stop_collide = {}
@@ -57,7 +57,7 @@ function Collision_Sprite:update_collisions()
 end
 
 function Collision_Sprite:init_shape(collider)
-  self.shape = collider:point(self.x, self.y)
+  self.shape = collider:rectangle(self.x,self.y,self:get_width(),self:get_height())
 end
 
 function Collision_Sprite:connect_shape()

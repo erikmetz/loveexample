@@ -1,7 +1,6 @@
+local HC = require 'HC'
 
-HC = require 'HC'
-
-Room = {objects = {}, sprites = {}, collision_sprites = {}}
+local Room = {objects = {}, sprites = {}, collision_sprites = {}}
 
 function Room:new(r)
   r = r or {objects = {}, sprites = {}, collision_sprites = {}}
@@ -66,6 +65,7 @@ function Room:insert_collision_sprite(collision_sprite)
   self.collision_sprites[p] = collision_sprite
   collision_sprite:set_room(room, self.collision_sprites, p)
   collision_sprite:init_shape(self.collider)
+  collision_sprite.shape.sprite = collision_sprite
   collision_sprite:set_collider(self.collider)
   collision_sprite:connect_shape()
 end
