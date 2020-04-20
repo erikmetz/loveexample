@@ -10,6 +10,9 @@ end
 function Object:update(dt)
 end
 
+function Object:_keypressed(key, scancode, isrepeat)
+end
+
 local Sprite = Object:new({x = 0, y = 0, sprite = nil})
 Sprite.rotation = 0
 Sprite.scalex = 1
@@ -65,12 +68,28 @@ function Sprite:move(dx, dy)
   self.y = self.y + dy
 end
 
-function Sprite:get_width()
-  return math.abs(self.width * self.scalex)
+function Sprite:get_center()
+  local cx = self.x + (self:get_width(true)/2)
+  local cy = self.y + (self:get_height(true)/2)
+  return cx, cy
 end
 
-function Sprite:get_height()
-  return self.height * self.scaley
+function Sprite:get_width(signed)
+  signed = signed or false
+  if signed then
+    return self.width * self.scalex
+  else
+    return math.abs(self.width * self.scalex)
+  end
+end
+
+function Sprite:get_height(signed)
+  signed = signed or false
+  if signed then
+    return self.height * self.scaley
+  else
+    return math.abs(self.height * self.scaley)
+  end
 end
 
 function Sprite:on_delete()
@@ -80,5 +99,7 @@ function Sprite:delete()
   self:on_delete()
   self.room_table[self.room_index] = nil
 end
+
+
 
 return Sprite

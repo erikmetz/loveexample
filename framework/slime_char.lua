@@ -1,5 +1,5 @@
 local Collision_Sprite = require('collision_sprite')
-
+local Player_Bullet = require("player_bullet")
 
 local Slime_Char = Collision_Sprite:new()
 local slime = love.graphics.newImage("Slime.png")
@@ -21,6 +21,20 @@ function Slime_Char:update(dt)
   end
   if love.keyboard.isDown('d') then
     self:move(self.speed*dt,0)
+  end
+end
+
+function Slime_Char:_keypressed(key, scancode, isrepeat)
+  local cx,cy = self:get_center()
+  local bspeed = 400
+  if key == 'up' then
+    self.room:insert_collision_sprite(Player_Bullet:new(cx,cy,{x=0,y=-1},bspeed))
+  elseif key == 'right' then
+    self.room:insert_collision_sprite(Player_Bullet:new(cx,cy,{x=1,y=0},bspeed))
+  elseif key == 'down' then
+    self.room:insert_collision_sprite(Player_Bullet:new(cx,cy,{x=0,y=1},bspeed))
+  elseif key == 'left' then
+    self.room:insert_collision_sprite(Player_Bullet:new(cx,cy,{x=-1,y=0},bspeed))
   end
 end
 

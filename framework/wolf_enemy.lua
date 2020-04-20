@@ -8,6 +8,8 @@ function Wolf_Enemy:init_shape(collider)
   self.shape = collider:rectangle(self.x,self.y,self:get_width(),self:get_height())
 end
 
+Wolf_Enemy.group = "enemy"
+
 Wolf_Enemy.sprite_frames = {wolf_frame_1,wolf_frame_2}
 Wolf_Enemy:set_sprite(wolf_frame_1)
 Wolf_Enemy.current_frame = 1
@@ -19,7 +21,7 @@ function Wolf_Enemy:new(x, y)
   e.y = y
   e.duration = 0
   e.anim_timer = 0
-  e.speed = 100
+  e.speed = 250
   local tempx = 2*math.random() - 1
   local tempy = 2*math.random() - 1
   e.direction = {}
@@ -46,6 +48,10 @@ Wolf_Enemy:on_collide("barrier", function(self,other,delta)
   if delta.y*self.direction.y < 0 then
     self.direction.y = -self.direction.y
   end
+end)
+
+Wolf_Enemy:on_collide("player_bullet", function(self,other,delta)
+  self:delete()
 end)
 
 function Wolf_Enemy:update(dt)

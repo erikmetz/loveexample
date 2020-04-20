@@ -8,6 +8,10 @@ Collision_Sprite._stop_collide = {}
 Collision_Sprite.colliding = {}
 Collision_Sprite.collider = nil
 
+function Collision_Sprite:init_colliding()
+  self.colliding = {}
+end
+
 function Collision_Sprite:new(o)
   o = o or {}
   o._on_collide = {}
@@ -22,9 +26,9 @@ function Collision_Sprite:new(o)
   for k,v in pairs(self._stop_collide) do
     o._stop_collide[k] = v
   end
-  o.colliding = {}
   setmetatable(o, self)
   self.__index = self
+  o:init_colliding()
   return o
 end
 

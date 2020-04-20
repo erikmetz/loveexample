@@ -18,7 +18,7 @@ function Room:update(dt)
   for _, sprite in pairs(self.sprites) do
     sprite:update(dt)
   end
-  for _, sprite in pairs(self.collision_sprites) do
+  for id, sprite in pairs(self.collision_sprites) do
     for shape, delta in pairs(self.collider:collisions(sprite.shape)) do
       if shape.sprite ~= sprite then
         if sprite.colliding[shape.sprite] == nil then
@@ -34,6 +34,18 @@ function Room:update(dt)
   end
   for i, sprite in pairs(self.collision_sprites) do
     sprite:update(dt)
+  end
+end
+
+function Room:_keypressed(key,scancode,isrepeat)
+  for _, obj in pairs(self.objects) do
+    obj:_keypressed(key,scancode,isrepeat)
+  end
+  for _, sprite in pairs(self.sprites) do
+    sprite:_keypressed(key,scancode,isrepeat)
+  end
+  for _, collision_sprite in pairs(self.collision_sprites) do
+    collision_sprite:_keypressed(key,scancode,isrepeat)
   end
 end
 
@@ -53,7 +65,7 @@ end
 function Room:insert_sprite(sprite)
   local p = #(self.sprites) + 1
   self.sprites[p] = sprite
-  sprite:set_room(room, self.sprites, p)
+  sprite:set_room(self, self.sprites, p)
   if sprite.init_shape ~= nil then
     sprite:init_shape(self.collider)
     sprite:connect_shape()
@@ -63,7 +75,7 @@ end
 function Room:insert_collision_sprite(collision_sprite)
   local p = #(self.collision_sprites) + 1
   self.collision_sprites[p] = collision_sprite
-  collision_sprite:set_room(room, self.collision_sprites, p)
+  collision_sprite:set_room(self, self.collision_sprites, p)
   collision_sprite:init_shape(self.collider)
   collision_sprite.shape.sprite = collision_sprite
   collision_sprite:set_collider(self.collider)
