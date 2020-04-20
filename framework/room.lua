@@ -18,6 +18,12 @@ function Room:update(dt)
   for _, sprite in pairs(self.sprites) do
     sprite:update(dt)
   end
+
+
+  for i, sprite in pairs(self.collision_sprites) do
+    sprite:update(dt)
+  end
+
   for id, sprite in pairs(self.collision_sprites) do
     for shape, delta in pairs(self.collider:collisions(sprite.shape)) do
       if shape.sprite ~= sprite then
@@ -29,11 +35,9 @@ function Room:update(dt)
       end
     end
   end
+
   for i, sprite in pairs(self.collision_sprites) do
     sprite:update_collisions()
-  end
-  for i, sprite in pairs(self.collision_sprites) do
-    sprite:update(dt)
   end
 end
 

@@ -102,7 +102,10 @@ function gameover:draw()
   love.graphics.setColor(1,0,0)
   love.graphics.print("you died", 10, 10)
   if self.t > 5 then
-    love.graphics.print("you're not very good at this game", 20, 30)
+    love.graphics.print("you're not very good at this game, are you?", 30, 50)
+  end
+  if self.t > 10 then
+    love.graphics.print("sorry if that was mean",50,500)
   end
 end
 

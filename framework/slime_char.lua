@@ -43,6 +43,10 @@ Slime_Char:on_collide("enemy", function(self,other,delta)
   self:delete()
 end)
 
+Slime_Char:during_collide("barrier", function(self,other,delta)
+  self:move(delta.x,delta.y)
+end)
+
 function Slime_Char:on_delete()
   if self.death_state ~= nil then
     Gamestate.switch(self.death_state)
