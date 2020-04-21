@@ -1,4 +1,4 @@
-local Collision_Sprite = require('collision_sprite')
+local Collision_Sprite = require('sprite/collision_sprite')
 local wolf_frame_1 = love.graphics.newImage("threequarterswolfframe1.png")
 local wolf_frame_2 = love.graphics.newImage("threequarterswolfframe2.png")
 local Wolf_Enemy = Collision_Sprite:new()

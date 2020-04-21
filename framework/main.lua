@@ -112,6 +112,7 @@ function gameover:draw()
 end
 
 function love.load()
+  love.graphics.setBackgroundColor(0, 0, 1)
   Gamestate.registerEvents()
   Gamestate.switch(game)
 end

@@ -1,10 +1,10 @@
 local Collision_Sprite = require('sprite/collision_sprite')
-local Player_Bullet = require("sprite/player_bullet") 
+local Player_Bullet = require("sprite/player_bullet")
 local Gamestate = require("hump.gamestate")
 local vector = require("hump.vector")
 
 local Slime_Char = Collision_Sprite:new()
-local slime = love.graphics.newImage("Slime.png")
+local slime = love.graphics.newImage("images/Slime.png")
 Slime_Char:set_sprite(slime)
 Slime_Char.velocity = vector(0,0)
 Slime_Char.max_speed = 220
