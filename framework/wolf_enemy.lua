@@ -22,7 +22,7 @@ function Wolf_Enemy:new(x, y)
   e = {}
   e.x = x
   e.y = y
-
+  e.colliding = {}
   e.duration = 0
   e.anim_timer = 0
   e.speed = 200
@@ -41,7 +41,10 @@ function Wolf_Enemy:next_frame()
   self:set_sprite(self.sprite_frames[self.current_frame])
 end
 
-Wolf_Enemy:on_collide("barrier", function(self,other,delta)
+Wolf_Enemy:during_collide("barrier", function(self,other,delta)
+  self:move(delta.x,delta.y)
+end)
+Wolf_Enemy:during_collide("enemy", function(self,other,delta)
   self:move(delta.x,delta.y)
 end)
 
@@ -70,7 +73,6 @@ function Wolf_Enemy:target_player(x,y)
 end
 
 function Wolf_Enemy:register_signals()
-  print(self.messenger)
   self.messenger:register('player_location',function(x,y)
     self:target_player(x,y)
   end)

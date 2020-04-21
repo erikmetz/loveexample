@@ -70,6 +70,8 @@ function game:enter()
   test_room:insert_collision_sprite(Barrier:new(0,600,800,100))
   test_room:insert_collision_sprite(Barrier:new(800,0,100,600))
   test_room:insert_collision_sprite(Wolf_Enemy:new(300,1))
+  test_room:insert_collision_sprite(Wolf_Enemy:new(0,300))
+  test_room:insert_collision_sprite(Wolf_Enemy:new(760,300))
   local slime_char_instance = Slime_Char:new({x = 550, y = 550})
   slime_char_instance.death_state = gameover
   test_room:insert_collision_sprite(slime_char_instance)
