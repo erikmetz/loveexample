@@ -1,9 +1,11 @@
 local HC = require 'HC'
+local Signal = require("hump.signal")
 
 local Room = {objects = {}, sprites = {}, collision_sprites = {}}
 
 function Room:new(r)
   r = r or {objects = {}, sprites = {}, collision_sprites = {}, to_delete = {}}
+  r.messenger = Signal.new()
   r.collider = HC.new()
   setmetatable(r, self)
   self.__index = self
@@ -79,6 +81,7 @@ function Room:insert_sprite(sprite)
     sprite:init_shape(self.collider)
     sprite:connect_shape()
   end
+  sprite:register_messenger(self.messenger)
 end
 
 function Room:insert_collision_sprite(collision_sprite)
@@ -89,6 +92,7 @@ function Room:insert_collision_sprite(collision_sprite)
   collision_sprite.shape.sprite = collision_sprite
   collision_sprite:set_collider(self.collider)
   collision_sprite:connect_shape()
+  collision_sprite:register_messenger(self.messenger)
 end
 
 return Room
