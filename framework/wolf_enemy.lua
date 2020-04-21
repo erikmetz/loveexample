@@ -1,6 +1,9 @@
 local Collision_Sprite = require('collision_sprite')
-local wolf_frame_1 = love.graphics.newImage("threequarterswolfframe1.png")
-local wolf_frame_2 = love.graphics.newImage("threequarterswolfframe2.png")
+love.graphics.setDefaultFilter('nearest', 'nearest', 1)
+local wolf_frame_1 = love.graphics.newImage("images/lildogwalk/sprite_0.png")
+local wolf_frame_2 = love.graphics.newImage("images/lildogwalk/sprite_1.png")
+local wolf_frame_3 = love.graphics.newImage("images/lildogwalk/sprite_2.png")
+local wolf_frame_4 = love.graphics.newImage("images/lildogwalk/sprite_3.png")
 local Wolf_Enemy = Collision_Sprite:new()
 local vector = require('hump.vector')
 local Signal = require('hump.signal')
@@ -12,7 +15,7 @@ end
 Wolf_Enemy.group = "enemy"
 Wolf_Enemy.health = 20
 
-Wolf_Enemy.sprite_frames = {wolf_frame_1,wolf_frame_2}
+Wolf_Enemy.sprite_frames = {wolf_frame_1,wolf_frame_2,wolf_frame_3,wolf_frame_4}
 Wolf_Enemy:set_sprite(wolf_frame_1)
 Wolf_Enemy.current_frame = 1
 Wolf_Enemy.animation_duration = .25
@@ -21,6 +24,8 @@ function Wolf_Enemy:new(x, y)
   e = {}
   e.x = x
   e.y = y
+  e.scalex = 4
+  e.scaley = 4
   e.colliding = {}
   e.duration = 0
   e.anim_timer = 0
