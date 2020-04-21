@@ -1,4 +1,4 @@
-local Collision_Sprite = require('collision_sprite')
+local Collision_Sprite = require('sprite/collision_sprite')
 
 local Barrier = Collision_Sprite:new()
 Barrier.group = "barrier"
