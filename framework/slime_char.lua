@@ -7,11 +7,11 @@ local Slime_Char = Collision_Sprite:new()
 local slime = love.graphics.newImage("Slime.png")
 Slime_Char:set_sprite(slime)
 Slime_Char.velocity = vector(0,0)
-Slime_Char.max_parallel_speed = 200
+Slime_Char.max_speed = 220
 Slime_Char.accel = 2500
 Slime_Char.shot_speed = 400
 Slime_Char.group = "player"
-Slime_Char.reload_time = .05
+Slime_Char.reload_time = .25
 Slime_Char.reload_timer = 1000
 
 function Slime_Char:update(dt)
@@ -20,19 +20,19 @@ function Slime_Char:update(dt)
   local cx,cy = self:get_center()
   self.reload_timer = self.reload_timer + dt
   if love.keyboard.isDown('w') then
-    self.velocity.y = math.max(-self.max_parallel_speed,self.velocity.y - self.accel*dt)
+    self.velocity.y = self.velocity.y - self.accel*dt
     moving_v = true
   end
   if love.keyboard.isDown('a') then
-    self.velocity.x = math.max(-self.max_parallel_speed,self.velocity.x- self.accel*dt)
+    self.velocity.x = self.velocity.x- self.accel*dt
     moving_h = true
   end
   if love.keyboard.isDown('s') then
-    self.velocity.y = math.min(self.max_parallel_speed,self.velocity.y + self.accel*dt)
+    self.velocity.y = self.velocity.y + self.accel*dt
     moving_v = true
   end
   if love.keyboard.isDown('d') then
-    self.velocity.x = math.min(self.max_parallel_speed,self.velocity.x + self.accel*dt)
+    self.velocity.x = self.velocity.x + self.accel*dt
     moving_h = true
   end
   if not moving_h then
@@ -40,6 +40,9 @@ function Slime_Char:update(dt)
   end
   if not moving_v then
     self.velocity.y = 0
+  end
+  if self.velocity:len() > self.max_speed then
+    self.velocity = self.max_speed * self.velocity:normalized()
   end
   self:move((self.velocity*dt):unpack())
 
@@ -67,6 +70,8 @@ function Slime_Char:update(dt)
       self.reload_timer = 0
     end
   end
+
+  self.messenger:emit('player_location', cx, cy)
 end
 
 function Slime_Char:_keypressed(key, scancode, isrepeat)
