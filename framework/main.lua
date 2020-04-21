@@ -1,9 +1,9 @@
 
 local Room = require("room")
-local Sprite = require("sprite")
-local Collision_Sprite = require("collision_sprite")
-local Slime_Char = require("slime_char")
-local Wolf_Enemy = require("wolf_enemy")
+local Sprite = require("sprite/sprite")
+local Collision_Sprite = require("sprite/collision_sprite")
+local Slime_Char = require("sprite/slime_char")
+local Wolf_Enemy = require("sprite/wolf_enemy")
 local Barrier = require("barrier")
 
 local Gamestate = require("hump.gamestate")
@@ -14,7 +14,7 @@ local gameover = {}
 math.randomseed(os.time())
 
 function game:enter()
-  local slime = love.graphics.newImage("Slime.png")
+  local slime = love.graphics.newImage("images/Slime.png")
   local Slime_sprite = Collision_Sprite:new()
   Slime_sprite:set_sprite(slime)
   Slime_sprite.velocity = 10

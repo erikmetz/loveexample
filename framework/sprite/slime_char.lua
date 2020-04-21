@@ -1,5 +1,5 @@
-local Collision_Sprite = require('collision_sprite')
-local Player_Bullet = require("player_bullet")
+local Collision_Sprite = require('sprite/collision_sprite')
+local Player_Bullet = require("sprite/player_bullet") 
 local Gamestate = require("hump.gamestate")
 local vector = require("hump.vector")
 

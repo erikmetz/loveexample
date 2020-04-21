@@ -1,4 +1,4 @@
-local Sprite = require('sprite')
+local Sprite = require('sprite/sprite')
 local HC = require('HC')
 
 local Collision_Sprite = Sprite:new()

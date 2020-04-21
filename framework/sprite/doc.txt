@@ -1,0 +1,4 @@
+A sprite is an object that derives from sprite.lua and
+has the following member functions:
+
+(Erik write these in)
