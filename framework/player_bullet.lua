@@ -1,14 +1,14 @@
 local Collision_Sprite = require("collision_sprite")
+local vector = require("hump.vector")
 
 local Player_Bullet = Collision_Sprite:new()
 Player_Bullet.group = "player_bullet"
 Player_Bullet.radius = 4
-function Player_Bullet:new(x,y,dir,speed)
+function Player_Bullet:new(x,y,velocity)
   local b = {}
   b.x = x
   b.y = y
-  b.direction = dir
-  b.speed = speed
+  b.velocity = velocity
   setmetatable(b, self)
   self.__index = self
   b:init_colliding()
@@ -16,7 +16,7 @@ function Player_Bullet:new(x,y,dir,speed)
 end
 
 function Player_Bullet:update(dt)
-  self:move(self.direction.x*self.speed*dt,self.direction.y*self.speed*dt)
+  self:move((dt*self.velocity):unpack())
 end
 
 function Player_Bullet:get_center()
