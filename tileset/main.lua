@@ -3,13 +3,6 @@
 local sti = require "Simple-Tiled-Implementation/sti"
 
 function love.load()
-	-- Grab window size
-	windowWidth  = love.graphics.getWidth()
-	windowHeight = love.graphics.getHeight()
-
-	-- Set world meter size (in pixels)
-	love.physics.setMeter(16)
-
 	-- Load a map exported to Lua from Tiled
 	map = sti("test_tilemap2.lua")
 end
