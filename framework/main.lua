@@ -5,7 +5,7 @@ local Collision_Sprite = require("collision_sprite")
 local Slime_Char = require("slime_char")
 local Wolf_Enemy = require("wolf_enemy")
 local Barrier = require("barrier")
-local Background = require("background")
+
 local Gamestate = require("hump.gamestate")
 
 local game = {}
@@ -14,7 +14,6 @@ local gameover = {}
 math.randomseed(os.time())
 
 function game:enter()
-  bg = Background:new("floorboards40.png")
   local slime = love.graphics.newImage("Slime.png")
   local Slime_sprite = Collision_Sprite:new()
   Slime_sprite:set_sprite(slime)
@@ -71,8 +70,6 @@ function game:enter()
   test_room:insert_collision_sprite(Barrier:new(0,600,800,100))
   test_room:insert_collision_sprite(Barrier:new(800,0,100,600))
   test_room:insert_collision_sprite(Wolf_Enemy:new(300,1))
-  test_room:insert_collision_sprite(Wolf_Enemy:new(0,300))
-  test_room:insert_collision_sprite(Wolf_Enemy:new(760,300))
   local slime_char_instance = Slime_Char:new({x = 550, y = 550})
   slime_char_instance.death_state = gameover
   test_room:insert_collision_sprite(slime_char_instance)
@@ -86,7 +83,6 @@ function game:update(dt)
 end
 
 function game:draw(dt)
-  bg:draw_full_background()
   test_room:draw(dt)
 end
 
@@ -114,7 +110,6 @@ function gameover:draw()
 end
 
 function love.load()
-  love.graphics.setBackgroundColor(0, 0, 1)
   Gamestate.registerEvents()
   Gamestate.switch(game)
 end
