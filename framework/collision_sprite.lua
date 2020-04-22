@@ -97,8 +97,7 @@ function Collision_Sprite:set_collider(collider)
   self.collider = collider
 end
 
-function Collision_Sprite:delete()
-  self:on_delete()
+function Collision_Sprite:_delete()
   if self.collider ~= nil then
     self.collider:remove(self.shape)
   end

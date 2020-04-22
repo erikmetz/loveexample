@@ -1,4 +1,5 @@
 local Object = {}
+local Signal = require('hump.signal')
 
 function Object:new(o)
   o = o or {}
@@ -11,6 +12,14 @@ function Object:update(dt)
 end
 
 function Object:_keypressed(key, scancode, isrepeat)
+end
+
+function Object:register_messenger(messenger)
+  self.messenger = messenger
+  self:register_signals()
+end
+
+function Object:register_signals()
 end
 
 local Sprite = Object:new({x = 0, y = 0, sprite = nil})
@@ -97,6 +106,10 @@ end
 
 function Sprite:delete()
   self:on_delete()
+  self.room.to_delete[self] = true
+end
+
+function Sprite:_delete()
   self.room_table[self.room_index] = nil
 end
 
